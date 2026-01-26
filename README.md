@@ -281,14 +281,215 @@ garagegest-app/
 
 ## 📸 Capturas de Pantalla
 
-> **Nota**: Las capturas de pantalla se pueden añadir aquí mostrando las diferentes secciones de la aplicación.
+### 🏠 Landing Page
+**Captura a realizar**: Página de inicio pública (antes del login)
+- Muestra el diseño general de la aplicación
+- Hero section con las tarjetas de características
+- Sección "¿Qué puedes hacer en cada apartado?"
 
-- Dashboard con estadísticas
-- Gestión de clientes y vehículos
-- Órdenes de trabajo con estados
-- Generación de facturas PDF
-- Sistema de recordatorios
-- Modo oscuro/claro
+![Landing Page](docs/images/landing.png)
+
+---
+
+### 🔐 Login
+**Captura a realizar**: Página de inicio de sesión
+- Formulario de login con el logo
+- Botón de mostrar/ocultar contraseña
+- Diseño moderno y limpio
+
+![Login](docs/images/login.png)
+
+---
+
+### 📊 Dashboard / Resumen
+**Captura a realizar**: Página de resumen después del login
+- Estadísticas del taller (clientes, vehículos, órdenes abiertas)
+- Resumen de facturación (total facturado, ticket medio, pendiente)
+- Recordatorios próximos
+- Órdenes pendientes asignadas (si eres mecánico)
+
+![Dashboard](docs/images/dashboard.png)
+
+---
+
+### 👥 Gestión de Clientes
+
+**1. Lista de Clientes**
+**Captura a realizar**: Vista de lista de clientes
+- Tabla con datos de clientes
+- Barra de búsqueda en tiempo real
+- Paginación visible
+- Botones de acción (Nuevo, Exportar)
+
+![Lista de Clientes](docs/images/clientes-lista.png)
+
+**2. Formulario de Cliente**
+**Captura a realizar**: Formulario de creación/edición de cliente
+- Campos con validaciones
+- Diseño del formulario moderno
+- Botones de acción
+
+![Formulario de Cliente](docs/images/clientes-form.png)
+
+**3. Detalle de Cliente**
+**Captura a realizar**: Página de detalle de un cliente
+- Información del cliente
+- Pestañas con vehículos asociados
+- Lista de órdenes de trabajo del cliente
+- Botón "Nuevo vehículo"
+
+![Detalle de Cliente](docs/images/clientes-detail.png)
+
+---
+
+### 🚙 Gestión de Vehículos
+
+**1. Lista de Vehículos**
+**Captura a realizar**: Vista de lista de vehículos
+- Tabla con vehículos y sus propietarios
+- Búsqueda y paginación
+- Botones de acción
+
+![Lista de Vehículos](docs/images/vehiculos-lista.png)
+
+**2. Formulario de Vehículo**
+**Captura a realizar**: Formulario de creación/edición de vehículo
+- Campos con validación de matrícula
+- Selector de cliente
+- Validaciones visibles
+
+![Formulario de Vehículo](docs/images/vehiculos-form.png)
+
+**3. Detalle de Vehículo**
+**Captura a realizar**: Página de detalle de un vehículo
+- Información del vehículo y propietario
+- Pestaña con órdenes de trabajo asociadas
+- Botón "Nueva OT"
+
+![Detalle de Vehículo](docs/images/vehiculos-detail.png)
+
+---
+
+### 🔧 Órdenes de Trabajo
+
+**1. Lista de Órdenes**
+**Captura a realizar**: Vista de lista de órdenes de trabajo
+- Tabla con órdenes y sus estados (badges de color)
+- Filtros por estado
+- Búsqueda y paginación
+- Botones de acción (Nuevo, Exportar)
+
+![Lista de Órdenes](docs/images/ordenes-lista.png)
+
+**2. Formulario de Orden de Trabajo**
+**Captura a realizar**: Formulario de creación/edición de orden
+- Campos con cálculo automático de IVA y total
+- Selector de vehículo
+- Selector de mecánico asignado
+- Campos de precio con símbolo €
+
+![Formulario de Orden](docs/images/ordenes-form.png)
+
+**3. Factura PDF Generada**
+**Captura a realizar**: Factura PDF abierta en el visor
+- Logo de la empresa
+- Número de orden
+- Datos del cliente y vehículo
+- Descripción del trabajo
+- Desglose de precios (subtotal, IVA, total)
+- Formato profesional
+
+![Factura PDF](docs/images/factura-pdf.png)
+
+---
+
+### 📅 Recordatorios
+
+**1. Lista de Recordatorios**
+**Captura a realizar**: Vista de lista de recordatorios
+- Tabla con recordatorios
+- Tipos y modos visibles
+- Estados y fechas objetivo
+- Búsqueda y paginación
+
+![Lista de Recordatorios](docs/images/recordatorios-lista.png)
+
+**2. Formulario de Recordatorio**
+**Captura a realizar**: Formulario de creación/edición de recordatorio
+- Selector de vehículo
+- Tipo de recordatorio (ITV, Seguro, Revisión)
+- Modo (Por fecha, Por km, Ambos)
+- Campos dinámicos según el modo seleccionado
+- Validación de kilometraje mínimo
+
+![Formulario de Recordatorio](docs/images/recordatorios-form.png)
+
+---
+
+### 👤 Gestión de Usuarios (Solo Admin)
+
+**1. Lista de Usuarios**
+**Captura a realizar**: Vista de lista de usuarios (accediendo como admin)
+- Tabla con usuarios y sus roles
+- Roles visibles con badges
+- Búsqueda y paginación
+
+![Lista de Usuarios](docs/images/usuarios-lista.png)
+
+---
+
+### 🌓 Modo Oscuro
+
+**1. Dashboard en Modo Oscuro**
+**Captura a realizar**: Dashboard con el modo oscuro activado
+- Muestra el toggle de modo oscuro (botón sol/luna)
+- Interfaz con tema oscuro aplicado
+- Buen contraste y legibilidad
+
+![Dashboard Modo Oscuro](docs/images/dashboard-dark.png)
+
+**2. Comparación Modo Claro vs Oscuro**
+**Captura a realizar**: Misma página en ambos modos (opcional)
+- Muestra la adaptación del tema
+- Toggle visible
+
+| Modo Claro | Modo Oscuro |
+|:----------:|:-----------:|
+| ![Claro](docs/images/comparison-light.png) | ![Oscuro](docs/images/comparison-dark.png) |
+
+---
+
+### 🎨 Características de UI/UX
+
+**1. Búsqueda en Tiempo Real**
+**Captura a realizar**: Mostrando la búsqueda activa en una lista
+- Barra de búsqueda con texto
+- Resultados filtrados en tiempo real
+
+**2. Paginación**
+**Captura a realizar**: Vista de paginación en una lista
+- Controles de paginación visibles
+- Selector de tamaño de página
+- Contador "Mostrando X - Y de Z registros"
+
+**3. Notificaciones Toast**
+**Captura a realizar**: Notificación toast visible (éxito o error)
+- Mensaje de confirmación personalizado
+- Diseño moderno
+
+**4. Modal de Confirmación**
+**Captura a realizar**: Modal personalizado de confirmación de eliminación
+- Diseño personalizado (no el alert nativo)
+- Botones de acción
+
+---
+
+### 📱 Responsive Design
+
+**1. Vista Móvil (Opcional)**
+**Captura a realizar**: Aplicación en un dispositivo móvil o vista responsive
+- Muestra la adaptación a pantallas pequeñas
+- Menú y navegación adaptados
 
 ---
 
@@ -333,8 +534,8 @@ garagegest-app/
 **Adrián Esquivel**
 
 - GitHub: [@adrianesbadev](https://github.com/adrianesbadev)
-- LinkedIn: [Tu perfil de LinkedIn]
-- Email: [Tu email]
+- LinkedIn: [Adrián Esquivel Barrera](https://www.linkedin.com/in/adrianesbadev/)
+- Email: adrianesba@gmail.com
 
 ---
 
@@ -347,6 +548,7 @@ Este proyecto es privado y forma parte de un Trabajo de Fin de Grado (TFG). Todo
 ## 🙏 Agradecimientos
 
 - Profesores del ciclo formativo DAM
+- Compañeros y amigos de clase del ciclo formativo DAM
 - Comunidad de Spring Boot
 - Documentación oficial de las tecnologías utilizadas
 
