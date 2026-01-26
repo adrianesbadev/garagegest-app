@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: taller-app
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/taller_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: TU_USUARIO_MYSQL
+    password: "TU_CONTRASEÑA_MYSQL"
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  thymeleaf:
+    cache: false
+
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+    include-message: always
+
+app:
+  bootstrap-admin:
+    enabled: false
+    force: false
+    username: admin
+    password: Admin123!
+    nombre: Administrador
+    email: admin@local

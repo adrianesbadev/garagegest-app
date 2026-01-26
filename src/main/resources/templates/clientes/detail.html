@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+<section>
+    <nav class="breadcrumbs" sec:authorize="isAuthenticated()">
+        <a th:href="@{/}">Inicio</a>
+        <span class="breadcrumb-separator">/</span>
+        <a th:href="@{/clientes}">Clientes</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current" th:text="${cliente.nombre}">Cliente</span>
+    </nav>
+    <div class="page-header">
+        <div>
+            <h1 th:text="'Cliente ' + ${cliente.nombre}">Cliente</h1>
+            <p class="muted">Historial y vehículos asociados</p>
+        </div>
+        <div class="form-actions">
+            <a class="button" th:href="@{/clientes/{id}/editar(id=${cliente.idCliente})}">Editar</a>
+            <a class="button" th:href="@{/vehiculos/nuevo(clienteId=${cliente.idCliente})}">
+                <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 5v14"/>
+                    <path d="M5 12h14"/>
+                </svg>
+                Nuevo vehículo
+            </a>
+            <a class="button" th:href="@{/clientes}">Volver</a>
+        </div>
+    </div>
+
+    <div class="tabs-wrapper">
+        <div class="tabs" data-tabs="cliente">
+            <button class="tab active" data-tab-target="cliente-datos" type="button">Datos</button>
+            <button class="tab" data-tab-target="cliente-vehiculos" type="button">Vehículos</button>
+            <button class="tab" data-tab-target="cliente-ordenes" type="button">Órdenes</button>
+        </div>
+        <div class="tab-panels" data-tab-panels="cliente">
+            <div id="cliente-datos" class="tab-panel active">
+                <div class="card">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Nombre</div>
+                            <div class="info-value" th:text="${cliente.nombre}">Nombre</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Teléfono</div>
+                            <div class="info-value" th:text="${cliente.telefono} ?: '-'">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Email</div>
+                            <div class="info-value text-wrap" th:text="${cliente.email} ?: '-'">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">NIF</div>
+                            <div class="info-value" th:text="${cliente.nif} ?: '-'">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Alta</div>
+                            <div class="info-value" th:text="${cliente.fechaAltaFormateada} ?: '-'">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cliente-vehiculos" class="tab-panel">
+                <div class="card">
+                    <div class="empty-state" th:if="${#lists.isEmpty(vehiculos)}">
+                        <div class="empty-state-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="3" y="10" width="18" height="7" rx="2"/>
+                                <path d="M6 10l2-3h8l2 3"/>
+                            </svg>
+                        </div>
+                        <h3>Sin vehículos</h3>
+                        <p>Este cliente aún no tiene vehículos registrados.</p>
+                        <a class="button primary" th:href="@{/vehiculos/nuevo(clienteId=${cliente.idCliente})}">
+                            <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 5v14M5 12h14"/>
+                            </svg>
+                            Añadir vehículo
+                        </a>
+                    </div>
+                    <div class="info-grid" th:if="${!#lists.isEmpty(vehiculos)}">
+                        <div class="info-item" th:each="vehiculo : ${vehiculos}">
+                            <div class="info-label" th:text="${vehiculo.matricula}">Matrícula</div>
+                            <div class="info-value" th:text="${vehiculo.marca} ?: '-'">Marca</div>
+                            <div class="hint" th:text="${vehiculo.modelo} ?: '-'">Modelo</div>
+                            <a class="button" th:href="@{/vehiculos/{id}(id=${vehiculo.idVehiculo})}">Ver</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cliente-ordenes" class="tab-panel">
+                <div class="timeline">
+                    <div class="empty-state" th:if="${#lists.isEmpty(ordenes)}">
+                        <div class="empty-state-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <path d="M14 2v6h6"/>
+                            </svg>
+                        </div>
+                        <h3>Sin órdenes de trabajo</h3>
+                        <p>Este cliente aún no tiene órdenes de trabajo registradas.</p>
+                    </div>
+                    <div class="timeline-item" th:each="ot : ${ordenes}">
+                        <div class="timeline-card">
+                            <div class="form-actions" style="justify-content: space-between; width: 100%;">
+                                <div>
+                                    <strong th:text="'OT #' + ${ot.idOt}">OT</strong>
+                                    <span class="muted" th:text="${ot.fechaCreacionFormateada} ?: '-'">Fecha</span>
+                                </div>
+                                <span class="badge"
+                                      th:classappend="' status-' + (ot.estado != null ? ot.estado.valor : 'abierta')"
+                                      th:text="${ot.estado != null ? ot.estado.etiqueta : 'Abierta'}">Estado</span>
+                            </div>
+                            <p class="muted" th:text="${ot.descripcion} ?: 'Sin descripción'">Descripción</p>
+                            <div class="form-actions" style="justify-content: space-between; width: 100%;">
+                                <span th:text="${ot.vehiculo != null ? ot.vehiculo.matricula : '-'}">Matrícula</span>
+                                <strong th:text="${ot.totalFormateado}">0.00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/tabs.js}"></script>
+</section>
+</html>

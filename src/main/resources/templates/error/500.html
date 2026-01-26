@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+<section>
+    <div class="page-header">
+        <div class="error-hero">
+            <h1>Error interno</h1>
+            <p class="muted">Algo no ha salido bien. Inténtalo de nuevo en unos minutos.</p>
+        </div>
+        <a class="button" th:href="@{/}">Ir al inicio</a>
+    </div>
+
+    <div class="card form-card">
+        <p>Si el problema persiste, revisa los logs del servidor.</p>
+        <p class="muted" th:if="${path}">Ruta: <span th:text="${path}">/</span></p>
+    </div>
+</section>
+</html>

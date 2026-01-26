@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="layout(content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} ?: 'GarageGest'">GarageGest</title>
+    <link rel="icon" type="image/svg+xml" th:href="@{/images/logo-garagegest.svg}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div class="app-shell">
+    <header class="topbar">
+        <div class="container header-row">
+            <div class="brand">
+                <a class="logo" th:href="@{/}">
+                    <img class="logo-img" th:src="@{/images/logo-garagegest.svg}" alt="GarageGest">
+                    <span class="logo-text">GarageGest</span>
+                </a>
+                <span class="logo-sub">Gestión integral del taller</span>
+            </div>
+            <nav class="nav" sec:authorize="isAuthenticated()">
+                <a th:href="@{/}">Inicio</a>
+                <a th:href="@{/resumen}">Resumen</a>
+                <a th:href="@{/clientes}" sec:authorize="hasAnyRole('ADMIN','RECEPCION')">Clientes</a>
+                <a th:href="@{/vehiculos}" sec:authorize="hasAnyRole('ADMIN','RECEPCION')">Vehículos</a>
+                <a th:href="@{/ordenes-trabajo}" sec:authorize="hasAnyRole('ADMIN','RECEPCION','MECANICO')">Órdenes</a>
+                <a th:href="@{/recordatorios}" sec:authorize="hasAnyRole('ADMIN','RECEPCION')">Recordatorios</a>
+                <a th:href="@{/usuarios}" sec:authorize="hasRole('ADMIN')">Usuarios</a>
+            </nav>
+            <div class="slogan" sec:authorize="isAnonymous()">
+                Taller al día, decisiones rápidas.
+            </div>
+            <div class="user-info" sec:authorize="isAuthenticated()">
+                <span class="user-badge" sec:authentication="name">usuario</span>
+                <form th:action="@{/logout}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <button class="button ghost" type="submit">Salir</button>
+                </form>
+            </div>
+            <div class="auth-cta" sec:authorize="isAnonymous()">
+                <a class="button primary" th:href="@{/login}">Acceder</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container app-main">
+        <div class="flash">
+            <div class="flash success" th:if="${success}" th:text="${success}">Operación correcta.</div>
+            <div class="flash error" th:if="${error}" th:text="${error}">Operación con error.</div>
+        </div>
+        <div th:replace="${content}"></div>
+    </main>
+    <footer class="app-footer">
+        <div class="container footer-row">
+            <div>
+                <strong>GarageGest</strong>
+                <span class="muted">Gestión profesional del taller mecánico</span>
+            </div>
+            <div class="muted">© 2026 GarageGest. Todos los derechos reservados.</div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </button>
+
+    <script th:src="@{/js/theme-toggle.js}"></script>
+    <script th:src="@{/js/notifications.js}"></script>
+    <script th:src="@{/js/validations.js}"></script>
+    <script th:src="@{/js/tooltips.js}"></script>
+    <script th:src="@{/js/table-sort.js}"></script>
+</div>
+
+<script>
+    function changePageSize(newSize) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('size', newSize);
+        url.searchParams.set('page', '0'); // Resetear a primera página
+        window.location.href = url.toString();
+    }
+</script>
+</body>
+</html>

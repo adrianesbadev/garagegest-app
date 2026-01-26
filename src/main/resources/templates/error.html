@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+<section>
+    <div class="page-header">
+        <div class="error-hero">
+            <h1 th:text="${title} ?: 'Error'">Error</h1>
+            <p class="muted">No te preocupes, estamos trabajando para resolverlo.</p>
+        </div>
+        <a class="button" th:href="@{/}">Ir al inicio</a>
+    </div>
+
+    <div class="card form-card">
+        <p><strong>Estado:</strong> <span th:text="${status} ?: 500">500</span></p>
+        <p><strong>Mensaje:</strong> <span th:text="${message} ?: 'Ha ocurrido un error.'">Ha ocurrido un error.</span></p>
+        <p class="muted" th:if="${path}">Ruta: <span th:text="${path}">/</span></p>
+    </div>
+</section>
+</html>

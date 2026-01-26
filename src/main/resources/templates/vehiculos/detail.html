@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+<section>
+    <nav class="breadcrumbs" sec:authorize="isAuthenticated()">
+        <a th:href="@{/}">Inicio</a>
+        <span class="breadcrumb-separator">/</span>
+        <a th:href="@{/vehiculos}">Vehículos</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current" th:text="${vehiculo.matricula}">Vehículo</span>
+    </nav>
+    <div class="page-header">
+        <div>
+            <h1 th:text="'Vehículo ' + ${vehiculo.matricula}">Vehículo</h1>
+            <p class="muted">
+                Cliente:
+                <a th:href="@{/clientes/{id}(id=${vehiculo.cliente.idCliente})}" th:text="${vehiculo.cliente.nombre}">Cliente</a>
+            </p>
+        </div>
+        <div class="form-actions">
+            <a class="button" th:href="@{/vehiculos/{id}/editar(id=${vehiculo.idVehiculo})}">Editar</a>
+            <a class="button" th:href="@{/ordenes-trabajo/nueva(vehiculoId=${vehiculo.idVehiculo})}">
+                <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 5v14"/>
+                    <path d="M5 12h14"/>
+                </svg>
+                Nueva OT
+            </a>
+            <a class="button" th:href="@{/vehiculos}">Volver</a>
+        </div>
+    </div>
+
+    <div class="tabs-wrapper">
+        <div class="tabs" data-tabs="vehiculo">
+            <button class="tab active" data-tab-target="vehiculo-datos" type="button">Datos</button>
+            <button class="tab" data-tab-target="vehiculo-ordenes" type="button">Órdenes</button>
+        </div>
+        <div class="tab-panels" data-tab-panels="vehiculo">
+            <div id="vehiculo-datos" class="tab-panel active">
+                <div class="card">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Matrícula</div>
+                            <div class="info-value" th:text="${vehiculo.matricula}">0000XXX</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Marca</div>
+                            <div class="info-value" th:text="${vehiculo.marca} ?: '-'">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Modelo</div>
+                            <div class="info-value" th:text="${vehiculo.modelo} ?: '-'">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Año</div>
+                            <div class="info-value" th:text="${vehiculo.anio} ?: '-'">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Km actuales</div>
+                            <div class="info-value" th:text="${vehiculo.kmActual} ?: '-'">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="vehiculo-ordenes" class="tab-panel">
+                <div class="timeline">
+                    <div class="empty-state" th:if="${#lists.isEmpty(ordenes)}">
+                        <div class="empty-state-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <path d="M14 2v6h6"/>
+                            </svg>
+                        </div>
+                        <h3>Sin órdenes de trabajo</h3>
+                        <p>Este vehículo aún no tiene órdenes de trabajo registradas.</p>
+                        <a class="button primary" th:href="@{/ordenes-trabajo/nueva(vehiculoId=${vehiculo.idVehiculo})}">
+                            <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 5v14M5 12h14"/>
+                            </svg>
+                            Crear orden de trabajo
+                        </a>
+                    </div>
+                    <div class="timeline-item" th:each="ot : ${ordenes}">
+                        <div class="timeline-card">
+                            <div class="form-actions" style="justify-content: space-between; width: 100%;">
+                                <div>
+                                    <strong th:text="'OT #' + ${ot.idOt}">OT</strong>
+                                    <span class="muted" th:text="${ot.fechaCreacionFormateada} ?: '-'">Fecha</span>
+                                </div>
+                                <span class="badge"
+                                      th:classappend="' status-' + (ot.estado != null ? ot.estado.valor : 'abierta')"
+                                      th:text="${ot.estado != null ? ot.estado.etiqueta : 'Abierta'}">Estado</span>
+                            </div>
+                            <p class="muted" th:text="${ot.descripcion} ?: 'Sin descripción'">Descripción</p>
+                            <div class="form-actions" style="justify-content: space-between; width: 100%;">
+                                <span th:text="${ot.usuarioAsignado != null ? ot.usuarioAsignado.nombre : 'Sin asignar'}">Asignado</span>
+                                <strong th:text="${ot.totalFormateado}">0.00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/tabs.js}"></script>
+</section>
+</html>

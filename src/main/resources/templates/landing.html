@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+<section>
+    <div class="hero">
+        <div class="hero-content">
+            <span class="badge">GarageGest</span>
+            <h1>La plataforma completa para tu taller mecánico</h1>
+            <p class="muted">
+                Centraliza clientes, vehículos, órdenes de trabajo y recordatorios en una interfaz moderna,
+                segura y fácil de usar.
+            </p>
+            <div class="form-actions">
+                <a class="button primary" th:href="@{/resumen}">Ver resumen</a>
+                <a class="button" th:href="@{/ordenes-trabajo}">Ir a órdenes</a>
+            </div>
+        </div>
+        <div class="hero-panel card">
+            <div class="hero-feature">
+                <div class="hero-feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <div class="hero-feature-content">
+                    <h3>Control total</h3>
+                    <p>Gestiona clientes y vehículos con historial completo siempre disponible</p>
+                </div>
+            </div>
+            <div class="hero-feature">
+                <div class="hero-feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                    </svg>
+                </div>
+                <div class="hero-feature-content">
+                    <h3>Trabajo organizado</h3>
+                    <p>Órdenes de trabajo claras con seguimiento por mecánico asignado</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="features-section">
+        <div class="features-header">
+            <h2>¿Qué puedes hacer en cada apartado?</h2>
+            <p class="muted">Explora las secciones clave de GarageGest y descubre todas las funcionalidades disponibles.</p>
+        </div>
+        <div class="grid">
+        <div class="card feature-card" sec:authorize="isAnonymous() or hasAnyRole('ADMIN','RECEPCION')">
+            <div class="icon-badge accent-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 21a8 8 0 1 0-16 0"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+            </div>
+            <h3>Clientes</h3>
+            <p class="muted">Gestiona datos de contacto, historial y comunicaciones.</p>
+            <a class="button" th:href="@{/clientes}">Abrir clientes</a>
+        </div>
+        <div class="card feature-card" sec:authorize="isAnonymous() or hasAnyRole('ADMIN','RECEPCION')">
+            <div class="icon-badge accent-cyan">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="10" width="18" height="7" rx="2"/>
+                    <path d="M6 10l2-3h8l2 3"/>
+                    <circle cx="8" cy="17" r="1.5"/>
+                    <circle cx="16" cy="17" r="1.5"/>
+                </svg>
+            </div>
+            <h3>Vehículos</h3>
+            <p class="muted">Registra matrículas, kilómetros y asignación a clientes.</p>
+            <a class="button" th:href="@{/vehiculos}">Abrir vehículos</a>
+        </div>
+        <div class="card feature-card" sec:authorize="isAnonymous() or hasAnyRole('ADMIN','RECEPCION','MECANICO')">
+            <div class="icon-badge accent-amber">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 2h6l1 3h4v17H4V5h4z"/>
+                    <path d="M8 10h8"/>
+                    <path d="M8 14h8"/>
+                </svg>
+            </div>
+            <h3>Órdenes de trabajo</h3>
+            <p class="muted">Planifica reparaciones, asigna mecánicos y controla costes.</p>
+            <a class="button" th:href="@{/ordenes-trabajo}">Abrir órdenes</a>
+        </div>
+        <div class="card feature-card" sec:authorize="isAnonymous() or hasAnyRole('ADMIN','RECEPCION')">
+            <div class="icon-badge accent-green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 5h18v14H3z"/>
+                    <path d="M7 3v4"/>
+                    <path d="M17 3v4"/>
+                    <path d="M3 9h18"/>
+                </svg>
+            </div>
+            <h3>Recordatorios</h3>
+            <p class="muted">Programación por fecha o kilómetros para ITV y revisiones.</p>
+            <a class="button" th:href="@{/recordatorios}">Abrir recordatorios</a>
+        </div>
+        <div class="card feature-card" sec:authorize="isAnonymous() or hasRole('ADMIN')">
+            <div class="icon-badge accent-slate">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M16 11a4 4 0 1 0-8 0"/>
+                    <path d="M4 21v-1a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v1"/>
+                </svg>
+            </div>
+            <h3>Usuarios</h3>
+            <p class="muted">Gestiona roles y accesos del personal del taller.</p>
+            <a class="button" th:href="@{/usuarios}">Abrir usuarios</a>
+        </div>
+        </div>
+    </div>
+</section>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout :: layout(~{::section})}">
+<section>
+    <div class="page-header">
+        <div>
+            <h1>Dashboard</h1>
+            <p>Panel de control con métricas y estadísticas del taller.</p>
+        </div>
+        <a class="button primary" th:href="@{/ordenes-trabajo/nueva}" 
+           sec:authorize="hasAnyRole('ADMIN','RECEPCION','MECANICO')">
+            <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5v14"/>
+                <path d="M5 12h14"/>
+            </svg>
+            Nueva OT
+        </a>
+    </div>
+
+    <nav class="breadcrumbs" sec:authorize="isAuthenticated()">
+        <a th:href="@{/}">Inicio</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">Resumen</span>
+    </nav>
+    <!-- Resumen de Facturación (solo admin/recepción) -->
+    <div class="dashboard-section" th:if="${esAdmin}" sec:authorize="hasAnyRole('ADMIN','RECEPCION')">
+        <h2 class="section-title">Facturación del mes</h2>
+        <div class="stats-grid">
+            <div class="stat-card featured">
+                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                <div class="stat-content">
+                    <div class="stat-label">Total facturado</div>
+                    <div class="stat-value" th:text="${resumenFacturacion.totalFacturadoFormateado}">0,00 €</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                <div class="stat-content">
+                    <div class="stat-label">Facturas emitidas</div>
+                    <div class="stat-value" th:text="${resumenFacturacion.numeroFacturas}">0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                <div class="stat-content">
+                    <div class="stat-label">Ticket medio</div>
+                    <div class="stat-value" th:text="${resumenFacturacion.ticketMedioFormateado}">0,00 €</div>
+                </div>
+            </div>
+            <div class="stat-card warning">
+                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                </svg>
+                <div class="stat-content">
+                    <div class="stat-label">Pendiente de facturar</div>
+                    <div class="stat-value" th:text="${resumenFacturacion.totalPendienteFormateado}">0,00 €</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Datos básicos para todos -->
+    <div class="dashboard-section">
+        <h2 class="section-title">Resumen general</h2>
+        <div class="grid">
+            <div class="stat-card">
+                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <div class="stat-content">
+                    <div class="stat-label">Clientes</div>
+                    <div class="stat-value" th:text="${clientesRegistrados}">0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 17h14v-4H5zM19 3H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 15h10M7 11h10"/>
+                </svg>
+                <div class="stat-content">
+                    <div class="stat-label">Vehículos</div>
+                    <div class="stat-value" th:text="${vehiculosRegistrados}">0</div>
+                </div>
+            </div>
+            <div class="stat-card accent">
+                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                </svg>
+                <div class="stat-content">
+                    <div class="stat-label">Órdenes abiertas</div>
+                    <div class="stat-value" th:text="${ordenesAbiertas}">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recordatorios próximos y órdenes (solo admin/recepción) -->
+    <div class="dashboard-section" th:if="${esAdmin}" sec:authorize="hasAnyRole('ADMIN','RECEPCION')">
+        <div class="widgets-grid">
+            <!-- Widget de recordatorios -->
+            <div class="card widget-card">
+                <div class="widget-header">
+                    <h3>
+                        <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                        Recordatorios próximos
+                    </h3>
+                    <a class="button ghost compact" th:href="@{/recordatorios}">Ver todos</a>
+                </div>
+                <div class="widget-list" th:if="${not #lists.isEmpty(recordatoriosProximos)}">
+                    <div class="widget-item" th:each="r : ${recordatoriosProximos}">
+                        <div class="widget-item-content">
+                            <div class="widget-item-title" th:text="${r.tipo}">ITV</div>
+                            <div class="widget-item-meta">
+                                <span th:text="${r.vehiculo.matricula}">ABC-1234</span>
+                                <span th:text="${r.vehiculo.marca + ' ' + r.vehiculo.modelo}">Ford Focus</span>
+                            </div>
+                            <div class="widget-item-date" th:if="${r.fechaObjetivo != null}">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <path d="M16 2v4M8 2v4M3 10h18"/>
+                                </svg>
+                                <span th:text="${#temporals.format(r.fechaObjetivo, 'dd/MM/yyyy')}">01/02/2026</span>
+                            </div>
+                            <div class="widget-item-km" th:if="${r.kmObjetivo != null}">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                                <span th:text="${r.kmObjetivo + ' km'}">50000 km</span>
+                            </div>
+                        </div>
+                        <span class="badge secondary" th:text="${r.modo.etiqueta}">Por fecha</span>
+                    </div>
+                </div>
+                <div class="empty-state" th:if="${#lists.isEmpty(recordatoriosProximos)}">
+                    <div class="empty-state-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3>Sin recordatorios próximos</h3>
+                    <p>No hay recordatorios que venzan en los próximos días.</p>
+                </div>
+            </div>
+
+            <!-- Accesos rápidos -->
+            <div class="card widget-card">
+                <div class="widget-header">
+                    <h3>
+                        <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                        Accesos rápidos
+                    </h3>
+                </div>
+                <div class="quick-actions">
+                    <a class="quick-action-btn" th:href="@{/clientes/nuevo}" sec:authorize="hasAnyRole('ADMIN','RECEPCION')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="8.5" cy="7" r="4"/>
+                            <path d="M20 8v6M23 11h-6"/>
+                        </svg>
+                        <span>Nuevo cliente</span>
+                    </a>
+                    <a class="quick-action-btn" th:href="@{/vehiculos/nuevo}" sec:authorize="hasAnyRole('ADMIN','RECEPCION')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 17h14v-4H5z"/>
+                            <path d="M19 3H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+                            <path d="M20 8v6M23 11h-6"/>
+                        </svg>
+                        <span>Nuevo vehículo</span>
+                    </a>
+                    <a class="quick-action-btn" th:href="@{/recordatorios/nuevo}" sec:authorize="hasAnyRole('ADMIN','RECEPCION')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                            <path d="M20 8v6M23 11h-6"/>
+                        </svg>
+                        <span>Nuevo recordatorio</span>
+                    </a>
+                    <a class="quick-action-btn" th:href="@{/clientes}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        <span>Ver clientes</span>
+                    </a>
+                    <a class="quick-action-btn" th:href="@{/vehiculos}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 17h14v-4H5z"/>
+                            <path d="M19 3H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                        <span>Ver vehículos</span>
+                    </a>
+                    <a class="quick-action-btn" th:href="@{/ordenes-trabajo}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <path d="M14 2v6h6"/>
+                        </svg>
+                        <span>Ver órdenes</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</html>
