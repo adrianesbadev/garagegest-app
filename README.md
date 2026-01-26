@@ -282,7 +282,6 @@ garagegest-app/
 ## 📸 Capturas de Pantalla
 
 ### 🏠 Landing Page
-**Captura a realizar**: Página de inicio pública (antes del login)
 - Muestra el diseño general de la aplicación
 - Hero section con las tarjetas de características
 - Sección "¿Qué puedes hacer en cada apartado?"
@@ -292,7 +291,6 @@ garagegest-app/
 ---
 
 ### 🔐 Login
-**Captura a realizar**: Página de inicio de sesión
 - Formulario de login con el logo
 - Botón de mostrar/ocultar contraseña
 - Diseño moderno y limpio
@@ -302,7 +300,6 @@ garagegest-app/
 ---
 
 ### 📊 Dashboard / Resumen
-**Captura a realizar**: Página de resumen después del login
 - Estadísticas del taller (clientes, vehículos, órdenes abiertas)
 - Resumen de facturación (total facturado, ticket medio, pendiente)
 - Recordatorios próximos
@@ -315,7 +312,6 @@ garagegest-app/
 ### 👥 Gestión de Clientes
 
 **1. Lista de Clientes**
-**Captura a realizar**: Vista de lista de clientes
 - Tabla con datos de clientes
 - Barra de búsqueda en tiempo real
 - Paginación visible
@@ -324,7 +320,6 @@ garagegest-app/
 ![Lista de Clientes](docs/images/clientes-lista.png)
 
 **2. Formulario de Cliente**
-**Captura a realizar**: Formulario de creación/edición de cliente
 - Campos con validaciones
 - Diseño del formulario moderno
 - Botones de acción
@@ -332,7 +327,6 @@ garagegest-app/
 ![Formulario de Cliente](docs/images/clientes-form.png)
 
 **3. Detalle de Cliente**
-**Captura a realizar**: Página de detalle de un cliente
 - Información del cliente
 - Pestañas con vehículos asociados
 - Lista de órdenes de trabajo del cliente
@@ -345,7 +339,6 @@ garagegest-app/
 ### 🚙 Gestión de Vehículos
 
 **1. Lista de Vehículos**
-**Captura a realizar**: Vista de lista de vehículos
 - Tabla con vehículos y sus propietarios
 - Búsqueda y paginación
 - Botones de acción
@@ -353,7 +346,6 @@ garagegest-app/
 ![Lista de Vehículos](docs/images/vehiculos-lista.png)
 
 **2. Formulario de Vehículo**
-**Captura a realizar**: Formulario de creación/edición de vehículo
 - Campos con validación de matrícula
 - Selector de cliente
 - Validaciones visibles
@@ -361,7 +353,6 @@ garagegest-app/
 ![Formulario de Vehículo](docs/images/vehiculos-form.png)
 
 **3. Detalle de Vehículo**
-**Captura a realizar**: Página de detalle de un vehículo
 - Información del vehículo y propietario
 - Pestaña con órdenes de trabajo asociadas
 - Botón "Nueva OT"
@@ -373,7 +364,6 @@ garagegest-app/
 ### 🔧 Órdenes de Trabajo
 
 **1. Lista de Órdenes**
-**Captura a realizar**: Vista de lista de órdenes de trabajo
 - Tabla con órdenes y sus estados (badges de color)
 - Filtros por estado
 - Búsqueda y paginación
@@ -382,7 +372,6 @@ garagegest-app/
 ![Lista de Órdenes](docs/images/ordenes-lista.png)
 
 **2. Formulario de Orden de Trabajo**
-**Captura a realizar**: Formulario de creación/edición de orden
 - Campos con cálculo automático de IVA y total
 - Selector de vehículo
 - Selector de mecánico asignado
@@ -391,7 +380,6 @@ garagegest-app/
 ![Formulario de Orden](docs/images/ordenes-form.png)
 
 **3. Factura PDF Generada**
-**Captura a realizar**: Factura PDF abierta en el visor
 - Logo de la empresa
 - Número de orden
 - Datos del cliente y vehículo
@@ -406,7 +394,6 @@ garagegest-app/
 ### 📅 Recordatorios
 
 **1. Lista de Recordatorios**
-**Captura a realizar**: Vista de lista de recordatorios
 - Tabla con recordatorios
 - Tipos y modos visibles
 - Estados y fechas objetivo
@@ -415,7 +402,6 @@ garagegest-app/
 ![Lista de Recordatorios](docs/images/recordatorios-lista.png)
 
 **2. Formulario de Recordatorio**
-**Captura a realizar**: Formulario de creación/edición de recordatorio
 - Selector de vehículo
 - Tipo de recordatorio (ITV, Seguro, Revisión)
 - Modo (Por fecha, Por km, Ambos)
@@ -429,7 +415,6 @@ garagegest-app/
 ### 👤 Gestión de Usuarios (Solo Admin)
 
 **1. Lista de Usuarios**
-**Captura a realizar**: Vista de lista de usuarios (accediendo como admin)
 - Tabla con usuarios y sus roles
 - Roles visibles con badges
 - Búsqueda y paginación
@@ -441,7 +426,6 @@ garagegest-app/
 ### 🌓 Modo Oscuro
 
 **1. Dashboard en Modo Oscuro**
-**Captura a realizar**: Dashboard con el modo oscuro activado
 - Muestra el toggle de modo oscuro (botón sol/luna)
 - Interfaz con tema oscuro aplicado
 - Buen contraste y legibilidad
@@ -449,7 +433,6 @@ garagegest-app/
 ![Dashboard Modo Oscuro](docs/images/dashboard-dark.png)
 
 **2. Comparación Modo Claro vs Oscuro**
-**Captura a realizar**: Misma página en ambos modos (opcional)
 - Muestra la adaptación del tema
 - Toggle visible
 
@@ -466,21 +449,29 @@ garagegest-app/
 - Barra de búsqueda con texto
 - Resultados filtrados en tiempo real
 
+![Busqueda en Tiempo Real](docs/images/busqueda-tiempo-real.png)
+
 **2. Paginación**
 **Captura a realizar**: Vista de paginación en una lista
 - Controles de paginación visibles
 - Selector de tamaño de página
 - Contador "Mostrando X - Y de Z registros"
 
+![Paginacion](docs/images/paginacion.png)
+
 **3. Notificaciones Toast**
 **Captura a realizar**: Notificación toast visible (éxito o error)
 - Mensaje de confirmación personalizado
 - Diseño moderno
 
+![Notificacion Toast](docs/images/notificacion.toast.png)
+
 **4. Modal de Confirmación**
 **Captura a realizar**: Modal personalizado de confirmación de eliminación
 - Diseño personalizado (no el alert nativo)
 - Botones de acción
+
+![Modal de Confirmacion](docs/images/modal-confirmacion.png)
 
 ---
 
