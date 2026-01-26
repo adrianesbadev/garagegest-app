@@ -484,15 +484,6 @@ garagegest-app/
 
 ---
 
-### 📱 Responsive Design
-
-**1. Vista Móvil (Opcional)**
-**Captura a realizar**: Aplicación en un dispositivo móvil o vista responsive
-- Muestra la adaptación a pantallas pequeñas
-- Menú y navegación adaptados
-
----
-
 ## 🔒 Seguridad
 
 - Contraseñas encriptadas con **BCrypt**
