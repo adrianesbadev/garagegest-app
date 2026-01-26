@@ -6,7 +6,7 @@
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.9-brightgreen?style=for-the-badge&logo=spring)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?style=for-the-badge&logo=mysql)
 ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.1-green?style=for-the-badge)
-![License](https://img.shields.io/badge/License-Private-red?style=for-the-badge)
+![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)
 
 **Sistema de gestión integral para talleres mecánicos**
 
@@ -522,7 +522,17 @@ garagegest-app/
 
 ## 📄 Licencia
 
-Este proyecto es privado y forma parte de un Trabajo de Fin de Grado (TFG). Todos los derechos reservados.
+Este proyecto es **propietario** y forma parte de un **Trabajo de Fin de Grado (TFG)** del ciclo formativo de Desarrollo de Aplicaciones Multiplataforma (DAM).
+
+**Uso no comercial permitido**: Este proyecto puede ser visualizado y utilizado con fines educativos, de aprendizaje y portfolio.
+
+**Uso comercial restringido**: El uso comercial, distribución, modificación o venta de este software está estrictamente prohibido sin autorización explícita del autor.
+
+Para consultas sobre licencias comerciales, contacta con:
+- Email: adrianesba@gmail.com
+- LinkedIn: [Adrián Esquivel Barrera](https://www.linkedin.com/in/adrianesbadev/)
+
+Ver el archivo [LICENSE](LICENSE) para más detalles.
 
 ---
 
