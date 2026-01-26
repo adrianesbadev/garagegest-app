@@ -332,7 +332,9 @@ garagegest-app/
 - Lista de órdenes de trabajo del cliente
 - Botón "Nuevo vehículo"
 
-![Detalle de Cliente](docs/images/clientes-detail.png)
+![Detalle de Cliente 1](docs/images/clientes-detail-1.png)
+![Detalle de Cliente 2](docs/images/clientes-detail-2.png)
+![Detalle de Cliente 3](docs/images/clientes-detail-3.png)
 
 ---
 
@@ -357,7 +359,8 @@ garagegest-app/
 - Pestaña con órdenes de trabajo asociadas
 - Botón "Nueva OT"
 
-![Detalle de Vehículo](docs/images/vehiculos-detail.png)
+![Detalle de Vehículo 1](docs/images/vehiculos-detail-1.png)
+![Detalle de Vehículo 2](docs/images/vehiculos-detail-2.png)
 
 ---
 
@@ -445,14 +448,12 @@ garagegest-app/
 ### 🎨 Características de UI/UX
 
 **1. Búsqueda en Tiempo Real**
-**Captura a realizar**: Mostrando la búsqueda activa en una lista
 - Barra de búsqueda con texto
 - Resultados filtrados en tiempo real
 
 ![Busqueda en Tiempo Real](docs/images/busqueda-tiempo-real.png)
 
 **2. Paginación**
-**Captura a realizar**: Vista de paginación en una lista
 - Controles de paginación visibles
 - Selector de tamaño de página
 - Contador "Mostrando X - Y de Z registros"
@@ -460,14 +461,12 @@ garagegest-app/
 ![Paginacion](docs/images/paginacion.png)
 
 **3. Notificaciones Toast**
-**Captura a realizar**: Notificación toast visible (éxito o error)
 - Mensaje de confirmación personalizado
 - Diseño moderno
 
-![Notificacion Toast](docs/images/notificacion.toast.png)
+![Notificacion Toast](docs/images/notificacion-toast.png)
 
 **4. Modal de Confirmación**
-**Captura a realizar**: Modal personalizado de confirmación de eliminación
 - Diseño personalizado (no el alert nativo)
 - Botones de acción
 
