@@ -2,6 +2,8 @@
  * Password Strength Indicator
  * Muestra una barra de colores que indica la fortaleza de la contraseña
  */
+console.log('[Password Strength] Script loaded');
+
 (function() {
     'use strict';
 
@@ -79,31 +81,48 @@
      */
     function initPasswordStrength() {
         const passwordInput = document.getElementById('password');
-        if (!passwordInput) return;
+        if (!passwordInput) {
+            console.log('[Password Strength] Password input not found');
+            return;
+        }
 
-        // Crear contenedor para el indicador
-        const container = document.createElement('div');
-        container.className = 'password-strength-container';
-        container.innerHTML = `
-            <div class="password-strength-bar">
-                <div class="password-strength-fill" id="password-strength-fill"></div>
-            </div>
-            <div class="password-strength-message" id="password-strength-message"></div>
-            <div class="password-strength-hints" id="password-strength-hints"></div>
-        `;
+        console.log('[Password Strength] Input found, initializing...');
 
-        // Insertar después del input
-        passwordInput.parentNode.insertBefore(container, passwordInput.nextSibling);
+        // Buscar el contenedor del campo (form-field)
+        const formField = passwordInput.closest('.form-field');
+        if (!formField) {
+            console.log('[Password Strength] Form field container not found');
+            return;
+        }
 
-        const fillBar = document.getElementById('password-strength-fill');
-        const messageEl = document.getElementById('password-strength-message');
-        const hintsEl = document.getElementById('password-strength-hints');
+        console.log('[Password Strength] Form field found');
+
+        // Buscar el contenedor que ya existe en el HTML
+        const container = formField.querySelector('.password-strength-container');
+        if (!container) {
+            console.error('[Password Strength] Container not found in HTML');
+            return;
+        }
+        
+        console.log('[Password Strength] Container found in HTML');
+
+        const fillBar = container.querySelector('#password-strength-fill');
+        const messageEl = container.querySelector('#password-strength-message');
+        const hintsEl = container.querySelector('#password-strength-hints');
+
+        if (!fillBar || !messageEl || !hintsEl) {
+            console.error('[Password Strength] Elements not found in container');
+            return;
+        }
+
+        console.log('[Password Strength] All elements found, setting up listeners');
 
         /**
          * Actualiza el indicador
          */
         function updateIndicator() {
             const password = passwordInput.value;
+            console.log('[Password Strength] Updating indicator, password length:', password.length);
             const result = calculateStrength(password);
 
             if (password.length === 0) {
@@ -115,6 +134,7 @@
                 return;
             }
 
+            console.log('[Password Strength] Showing indicator, strength:', result.score);
             container.style.display = 'block';
             fillBar.style.width = result.percentage + '%';
             fillBar.style.backgroundColor = getStrengthColor(result.score);
@@ -164,9 +184,19 @@
     }
 
     // Inicializar cuando el DOM esté listo
+    function initialize() {
+        console.log('[Password Strength] Initializing...');
+        // Esperar un poco para asegurar que Thymeleaf haya procesado todo
+        setTimeout(function() {
+            initPasswordStrength();
+        }, 500);
+    }
+
+    // Esperar a que el DOM esté completamente cargado
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initPasswordStrength);
+        document.addEventListener('DOMContentLoaded', initialize);
     } else {
-        initPasswordStrength();
+        // Si el DOM ya está cargado, ejecutar directamente
+        initialize();
     }
 })();
