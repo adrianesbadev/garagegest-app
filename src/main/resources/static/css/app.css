@@ -250,7 +250,7 @@ body {
 .page-header {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.5rem;
     margin-bottom: 1.5rem;
     padding: 1.5rem;
     background: var(--surface);
@@ -452,7 +452,7 @@ body {
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+    gap: 1.5rem;
 }
 
 .form-grid.single-col {
