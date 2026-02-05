@@ -133,6 +133,7 @@ public class OrdenTrabajoController {
             ensureRelationsNotNull(ordenTrabajo);
             model.addAttribute("title", "Editar orden de trabajo");
             model.addAttribute("ordenTrabajo", ordenTrabajo);
+            model.addAttribute("kmEntradaOriginal", ordenTrabajo.getKmEntrada());
             loadSelectLists(model);
             model.addAttribute("action", "/ordenes-trabajo/" + id);
             model.addAttribute("isEdit", true);
@@ -153,6 +154,7 @@ public class OrdenTrabajoController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Editar orden de trabajo");
             ensureRelationsNotNull(ordenTrabajo);
+            model.addAttribute("kmEntradaOriginal", ordenTrabajoService.findById(id).getKmEntrada());
             loadSelectLists(model);
             model.addAttribute("action", "/ordenes-trabajo/" + id);
             model.addAttribute("isEdit", true);
@@ -168,6 +170,7 @@ public class OrdenTrabajoController {
         } catch (IllegalStateException ex) {
             model.addAttribute("title", "Editar orden de trabajo");
             ensureRelationsNotNull(ordenTrabajo);
+            model.addAttribute("kmEntradaOriginal", ordenTrabajoService.findById(id).getKmEntrada());
             loadSelectLists(model);
             model.addAttribute("action", "/ordenes-trabajo/" + id);
             model.addAttribute("isEdit", true);

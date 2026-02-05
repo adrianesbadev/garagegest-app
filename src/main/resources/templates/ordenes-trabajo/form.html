@@ -25,7 +25,7 @@
 
     <div class="card form-card">
         <form th:action="@{${action}}" th:object="${ordenTrabajo}" method="post"
-              th:attr="data-km-min-original=${isEdit && ordenTrabajo.kmEntrada != null ? ordenTrabajo.kmEntrada : null}">
+              th:attr="data-km-min-original=${isEdit && kmEntradaOriginal != null ? kmEntradaOriginal : null}">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             
             <div class="form-section">
