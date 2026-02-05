@@ -898,6 +898,11 @@ button {
     box-shadow: 0 10px 20px rgba(32, 35, 39, 0.12);
 }
 
+.icon-button:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
 .icon-button[data-tooltip]::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -2639,6 +2644,15 @@ textarea,
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+.pagination-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.pagination-btn.disabled:focus-visible {
+    box-shadow: none;
 }
 
 .pagination-btn svg {
