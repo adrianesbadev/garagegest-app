@@ -396,6 +396,13 @@ body {
     margin-top: 1.5rem;
 }
 
+form .form-actions {
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+}
+
 /* Advanced Form Styles */
 .form-card {
     max-width: 920px;
@@ -650,15 +657,6 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-.form-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
 }
 
 .form-actions .button {
