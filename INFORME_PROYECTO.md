@@ -282,7 +282,7 @@ Los controladores manejan las peticiones HTTP y coordinan entre la vista y el se
 - **Propósito**: Valida que un email tenga formato válido y dominio real
 
 #### **Nif.java** / **NifValidator.java**
-- **Propósito**: Valida formato de NIF/CIF español (con letra de control)
+- **Propósito**: Valida formato de NIF/NIE español (DNI/NIE con letra de control)
 
 #### **TelefonoEspanol.java** / **TelefonoEspanolValidator.java**
 - **Propósito**: Valida formato de teléfono español (9 dígitos)

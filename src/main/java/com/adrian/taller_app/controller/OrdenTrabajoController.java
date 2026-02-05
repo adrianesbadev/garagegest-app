@@ -133,6 +133,7 @@ public class OrdenTrabajoController {
             ensureRelationsNotNull(ordenTrabajo);
             model.addAttribute("title", "Editar orden de trabajo");
             model.addAttribute("ordenTrabajo", ordenTrabajo);
+            model.addAttribute("kmEntradaOriginal", ordenTrabajo.getKmEntrada());
             loadSelectLists(model);
             model.addAttribute("action", "/ordenes-trabajo/" + id);
             model.addAttribute("isEdit", true);
@@ -151,6 +152,12 @@ public class OrdenTrabajoController {
                          RedirectAttributes redirectAttributes) {
         validateVehiculoSelection(ordenTrabajo, bindingResult);
         if (bindingResult.hasErrors()) {
+            try {
+                model.addAttribute("kmEntradaOriginal", ordenTrabajoService.findById(id).getKmEntrada());
+            } catch (EntityNotFoundException ex) {
+                redirectAttributes.addFlashAttribute("error", "Orden de trabajo no encontrada.");
+                return "redirect:/ordenes-trabajo";
+            }
             model.addAttribute("title", "Editar orden de trabajo");
             ensureRelationsNotNull(ordenTrabajo);
             loadSelectLists(model);
@@ -166,6 +173,12 @@ public class OrdenTrabajoController {
             redirectAttributes.addFlashAttribute("error", "Orden de trabajo no encontrada.");
             return "redirect:/ordenes-trabajo";
         } catch (IllegalStateException ex) {
+            try {
+                model.addAttribute("kmEntradaOriginal", ordenTrabajoService.findById(id).getKmEntrada());
+            } catch (EntityNotFoundException enfe) {
+                redirectAttributes.addFlashAttribute("error", "Orden de trabajo no encontrada.");
+                return "redirect:/ordenes-trabajo";
+            }
             model.addAttribute("title", "Editar orden de trabajo");
             ensureRelationsNotNull(ordenTrabajo);
             loadSelectLists(model);

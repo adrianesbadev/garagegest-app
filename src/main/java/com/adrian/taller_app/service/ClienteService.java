@@ -100,12 +100,12 @@ public class ClienteService {
             return;
         }
         if (idActual == null) {
-            throw new IllegalStateException("Ya existe un cliente con este NIF/CIF.");
+            throw new IllegalStateException("Ya existe un cliente con este NIF/NIE.");
         }
         clienteRepository.findByNifIgnoreCase(nifNormalizado)
                 .filter(c -> !c.getIdCliente().equals(idActual))
                 .ifPresent(c -> {
-                    throw new IllegalStateException("Ya existe un cliente con este NIF/CIF.");
+                    throw new IllegalStateException("Ya existe un cliente con este NIF/NIE.");
                 });
     }
 

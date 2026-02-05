@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Nif {
-    String message() default "El NIF/CIF no es válido";
+    String message() default "El NIF/NIE no es válido";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     boolean required() default false;
