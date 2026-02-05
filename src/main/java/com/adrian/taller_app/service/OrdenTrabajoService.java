@@ -82,13 +82,16 @@ public class OrdenTrabajoService {
     public OrdenTrabajo create(OrdenTrabajo ordenTrabajo) {
         sanitize(ordenTrabajo);
         Vehiculo vehiculo = resolveVehiculo(ordenTrabajo);
+        validarKmEntrada(vehiculo, ordenTrabajo.getKmEntrada());
         ordenTrabajo.setVehiculo(vehiculo);
         Usuario usuarioAsignado = resolveUsuarioAsignado(ordenTrabajo.getUsuarioAsignado());
         ordenTrabajo.setUsuarioAsignado(usuarioAsignado);
         ensureEstado(ordenTrabajo);
         handleFechaCierre(ordenTrabajo);
         normalizarTotales(ordenTrabajo);
-        return ordenTrabajoRepository.save(ordenTrabajo);
+        OrdenTrabajo saved = ordenTrabajoRepository.save(ordenTrabajo);
+        actualizarKmVehiculo(vehiculo, ordenTrabajo.getKmEntrada());
+        return saved;
     }
 
     @Transactional
@@ -96,6 +99,7 @@ public class OrdenTrabajoService {
         OrdenTrabajo existente = findById(idOt);
         sanitize(datos);
         Vehiculo vehiculo = resolveVehiculo(datos);
+        validarKmEntrada(vehiculo, datos.getKmEntrada());
         Usuario usuarioAsignado = resolveUsuarioAsignado(datos.getUsuarioAsignado());
         existente.setVehiculo(vehiculo);
         existente.setUsuarioAsignado(usuarioAsignado);
@@ -113,7 +117,24 @@ public class OrdenTrabajoService {
             handleFechaCierre(existente);
         }
         normalizarTotales(existente);
-        return ordenTrabajoRepository.save(existente);
+        OrdenTrabajo saved = ordenTrabajoRepository.save(existente);
+        actualizarKmVehiculo(vehiculo, existente.getKmEntrada());
+        return saved;
+    }
+
+    /**
+     * Actualiza el kilometraje actual del vehículo si la OT tiene km de entrada
+     * y es mayor que el km actual del vehículo (evita tener que actualizarlo manualmente).
+     */
+    private void actualizarKmVehiculo(Vehiculo vehiculo, Integer kmEntrada) {
+        if (vehiculo == null || kmEntrada == null) {
+            return;
+        }
+        Integer kmActual = vehiculo.getKmActual();
+        if (kmActual == null || kmEntrada > kmActual) {
+            vehiculo.setKmActual(kmEntrada);
+            vehiculoRepository.save(vehiculo);
+        }
     }
 
     @Transactional
@@ -138,6 +159,20 @@ public class OrdenTrabajoService {
         }
         return usuarioRepository.findById(usuario.getIdUsuario())
                 .orElseThrow(() -> new EntityNotFoundException("Usuario asignado no encontrado"));
+    }
+
+    /**
+     * Valida que el km de entrada no sea menor que el km actual del vehículo.
+     */
+    private void validarKmEntrada(Vehiculo vehiculo, Integer kmEntrada) {
+        if (vehiculo == null || kmEntrada == null) {
+            return;
+        }
+        Integer kmActual = vehiculo.getKmActual();
+        if (kmActual != null && kmEntrada < kmActual) {
+            throw new IllegalStateException(
+                    "El kilometraje de entrada (" + kmEntrada + " km) no puede ser menor que el kilometraje actual del vehículo (" + kmActual + " km).");
+        }
     }
 
     private void normalizarTotales(OrdenTrabajo ordenTrabajo) {

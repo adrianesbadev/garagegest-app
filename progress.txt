@@ -1,0 +1,2 @@
+Base de control creada: progress.txt, APP_FLOW.md, FRONTEND_GUIDELINES.md, TECH_STACK.md, PRD.md, LESSONS.md (MVP).
+Proyecto existente GarageGest documentado; sin cambios funcionales.

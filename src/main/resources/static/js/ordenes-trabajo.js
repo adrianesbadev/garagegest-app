@@ -1,6 +1,7 @@
 /**
- * Calcula automáticamente IVA (21%) y total basado en el subtotal
- * en el formulario de órdenes de trabajo.
+ * Formulario de órdenes de trabajo:
+ * - Calcula IVA (21%) y total según subtotal
+ * - Mínimo de km de entrada según el vehículo seleccionado
  */
 (() => {
     'use strict';
@@ -8,6 +9,8 @@
     const subtotalInput = document.getElementById("subtotal");
     const ivaInput = document.getElementById("ivaTotal");
     const totalInput = document.getElementById("total");
+    const vehiculoSelect = document.getElementById("vehiculo");
+    const kmEntradaInput = document.getElementById("kmEntrada");
 
     if (!subtotalInput || !ivaInput || !totalInput) {
         return;
@@ -40,4 +43,21 @@
 
     subtotalInput.addEventListener("input", updateFromSubtotal);
     updateFromSubtotal();
+
+    /** Mínimo de km de entrada según el vehículo seleccionado */
+    if (vehiculoSelect && kmEntradaInput) {
+        const updateKmMin = () => {
+            const selected = vehiculoSelect.options[vehiculoSelect.selectedIndex];
+            const minKm = selected && selected.hasAttribute("data-km")
+                ? parseInt(selected.getAttribute("data-km"), 10)
+                : 0;
+            kmEntradaInput.min = minKm;
+            if (kmEntradaInput.value !== "" && parseInt(kmEntradaInput.value, 10) < minKm) {
+                kmEntradaInput.value = minKm;
+            }
+        };
+
+        vehiculoSelect.addEventListener("change", updateKmMin);
+        updateKmMin();
+    }
 })();
