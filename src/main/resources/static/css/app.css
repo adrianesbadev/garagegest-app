@@ -936,6 +936,11 @@ button {
     color: var(--text);
 }
 
+.button:not(.primary):not(.success):not(.danger):not(.ghost):active {
+    background: var(--surface-2);
+    border-color: var(--border-strong);
+}
+
 .button.primary {
     background: var(--primary);
     border-color: var(--primary);
@@ -967,6 +972,18 @@ button {
     border-color: var(--red-5);
     color: var(--red-7);
     background: var(--red-0);
+}
+
+.button.danger:hover {
+    background: var(--red-1);
+    border-color: var(--red-5);
+    color: var(--red-7);
+}
+
+.button.danger:active {
+    background: var(--red-7);
+    color: var(--slate-0);
+    border-color: var(--red-7);
 }
 
 .button.success {
