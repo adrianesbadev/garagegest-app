@@ -65,6 +65,7 @@
     --shadow-strong: 0 28px 70px rgba(32, 35, 39, 0.18);
     --radius: 18px;
     --focus-ring: 0 0 0 3px rgba(47, 190, 218, 0.25);
+    --on-primary: #ffffff;
 }
 
 /* Dark Mode */
@@ -88,6 +89,7 @@
     --danger: #E02929;
     --info: #5ACBE2;
     --focus-ring: 0 0 0 3px rgba(90, 203, 226, 0.35);
+    --on-primary: var(--slate-0);
     --green-1: #103724;
     --green-6: #30A66B;
     --amber-1: #462D02;
@@ -108,6 +110,8 @@ body {
         radial-gradient(900px 420px at 100% 15%, var(--cyan-1), transparent 60%),
         linear-gradient(160deg, var(--slate-0) 0%, var(--blue-0) 45%, var(--cyan-1) 100%);
     color: var(--text);
+    font-size: 1rem;
+    line-height: 1.6;
     min-height: 100vh;
     transition: background 0.4s ease, color 0.3s ease;
 }
@@ -246,7 +250,7 @@ body {
 .page-header {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.5rem;
     margin-bottom: 1.5rem;
     padding: 1.5rem;
     background: var(--surface);
@@ -310,10 +314,14 @@ body {
 .page-header h1 {
     margin: 0;
     font-size: 1.7rem;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
 }
 
 .page-header p {
     margin: 0.35rem 0 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
     color: var(--muted);
 }
 
@@ -388,6 +396,13 @@ body {
     margin-top: 1.5rem;
 }
 
+form .form-actions {
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+}
+
 /* Advanced Form Styles */
 .form-card {
     max-width: 920px;
@@ -403,6 +418,7 @@ body {
 .form-header h2 {
     margin: 0 0 0.4rem;
     font-size: 1.4rem;
+    line-height: 1.3;
     color: var(--text);
 }
 
@@ -435,13 +451,15 @@ body {
     margin: 0;
     font-size: 1.1rem;
     font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
     color: var(--text);
 }
 
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+    gap: 1.5rem;
 }
 
 .form-grid.single-col {
@@ -641,15 +659,6 @@ body {
     }
 }
 
-.form-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
-}
-
 .form-actions .button {
     padding: 0.75rem 1.75rem;
     font-size: 0.95rem;
@@ -734,7 +743,8 @@ body {
 
 .table th {
     background: var(--surface-2);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
+    line-height: 1.2;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--slate-6);
@@ -886,6 +896,11 @@ button {
     box-shadow: 0 10px 20px rgba(32, 35, 39, 0.12);
 }
 
+.icon-button:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
 .icon-button[data-tooltip]::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -919,6 +934,11 @@ button {
     color: var(--text);
 }
 
+.button:not(.primary):not(.success):not(.danger):not(.ghost):active {
+    background: var(--surface-2);
+    border-color: var(--border-strong);
+}
+
 .button.primary {
     background: var(--primary);
     border-color: var(--primary);
@@ -950,6 +970,18 @@ button {
     border-color: var(--red-5);
     color: var(--red-7);
     background: var(--red-0);
+}
+
+.button.danger:hover {
+    background: var(--red-1);
+    border-color: var(--red-5);
+    color: var(--red-7);
+}
+
+.button.danger:active {
+    background: var(--red-7);
+    color: var(--slate-0);
+    border-color: var(--red-7);
 }
 
 .button.success {
@@ -2627,6 +2659,15 @@ textarea,
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+.pagination-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.pagination-btn.disabled:focus-visible {
+    box-shadow: none;
 }
 
 .pagination-btn svg {
