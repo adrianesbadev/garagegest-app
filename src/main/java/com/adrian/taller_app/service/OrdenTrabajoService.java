@@ -99,7 +99,7 @@ public class OrdenTrabajoService {
         OrdenTrabajo existente = findById(idOt);
         sanitize(datos);
         Vehiculo vehiculo = resolveVehiculo(datos);
-        validarKmEntrada(vehiculo, datos.getKmEntrada());
+        validarKmEntradaEnActualizacion(existente.getKmEntrada(), datos.getKmEntrada(), vehiculo);
         Usuario usuarioAsignado = resolveUsuarioAsignado(datos.getUsuarioAsignado());
         existente.setVehiculo(vehiculo);
         existente.setUsuarioAsignado(usuarioAsignado);
@@ -123,18 +123,15 @@ public class OrdenTrabajoService {
     }
 
     /**
-     * Actualiza el kilometraje actual del vehículo si la OT tiene km de entrada
-     * y es mayor que el km actual del vehículo (evita tener que actualizarlo manualmente).
+     * Actualiza el kilometraje actual del vehículo en BD solo si el nuevo valor es mayor
+     * (o km_actual es null). Usa un UPDATE condicional atómico para evitar condiciones
+     * de carrera: si dos órdenes se crean a la vez para el mismo vehículo, solo gana el km mayor.
      */
     private void actualizarKmVehiculo(Vehiculo vehiculo, Integer kmEntrada) {
         if (vehiculo == null || kmEntrada == null) {
             return;
         }
-        Integer kmActual = vehiculo.getKmActual();
-        if (kmActual == null || kmEntrada > kmActual) {
-            vehiculo.setKmActual(kmEntrada);
-            vehiculoRepository.save(vehiculo);
-        }
+        vehiculoRepository.updateKmActualIfGreater(vehiculo.getIdVehiculo(), kmEntrada);
     }
 
     @Transactional
@@ -163,6 +160,7 @@ public class OrdenTrabajoService {
 
     /**
      * Valida que el km de entrada no sea menor que el km actual del vehículo.
+     * Usar solo en creación de órdenes.
      */
     private void validarKmEntrada(Vehiculo vehiculo, Integer kmEntrada) {
         if (vehiculo == null || kmEntrada == null) {
@@ -173,6 +171,25 @@ public class OrdenTrabajoService {
             throw new IllegalStateException(
                     "El kilometraje de entrada (" + kmEntrada + " km) no puede ser menor que el kilometraje actual del vehículo (" + kmActual + " km).");
         }
+    }
+
+    /**
+     * Valida km de entrada en actualización: no se permite bajar el km por debajo del valor
+     * original de la orden. Si la orden no tenía km, se valida contra el vehículo (como en creación).
+     * Así se evita bloquear la edición de órdenes antiguas cuando el vehículo ya tiene órdenes posteriores con más km.
+     */
+    private void validarKmEntradaEnActualizacion(Integer kmOriginal, Integer kmNuevo, Vehiculo vehiculo) {
+        if (kmNuevo == null) {
+            return;
+        }
+        if (kmOriginal != null) {
+            if (kmNuevo < kmOriginal) {
+                throw new IllegalStateException(
+                        "El kilometraje de entrada (" + kmNuevo + " km) no puede ser menor que el valor original de la orden (" + kmOriginal + " km).");
+            }
+            return;
+        }
+        validarKmEntrada(vehiculo, kmNuevo);
     }
 
     private void normalizarTotales(OrdenTrabajo ordenTrabajo) {

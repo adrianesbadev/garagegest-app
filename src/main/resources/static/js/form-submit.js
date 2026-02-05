@@ -5,16 +5,25 @@
 (function () {
     'use strict';
 
+    /**
+     * Solo deshabilita si el envío no fue cancelado (p. ej. por un diálogo de confirmación).
+     * Usamos setTimeout(0) para ejecutar después del resto de listeners; si alguno hizo
+     * preventDefault(), defaultPrevented será true y no deshabilitamos.
+     */
     function init() {
         document.querySelectorAll('form').forEach(function (form) {
-            form.addEventListener('submit', function () {
+            form.addEventListener('submit', function (e) {
                 var buttons = form.querySelectorAll('button[type="submit"], input[type="submit"]');
-                buttons.forEach(function (btn) {
-                    btn.disabled = true;
-                    if (btn.tagName === 'BUTTON') {
-                        btn.setAttribute('aria-busy', 'true');
-                    }
-                });
+                var ev = e;
+                window.setTimeout(function () {
+                    if (ev.defaultPrevented) return;
+                    buttons.forEach(function (btn) {
+                        btn.disabled = true;
+                        if (btn.tagName === 'BUTTON') {
+                            btn.setAttribute('aria-busy', 'true');
+                        }
+                    });
+                }, 0);
             });
         });
     }

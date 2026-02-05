@@ -44,13 +44,21 @@
     subtotalInput.addEventListener("input", updateFromSubtotal);
     updateFromSubtotal();
 
-    /** Mínimo de km de entrada según el vehículo seleccionado */
+    /** Mínimo de km: en edición, no bajar del km original de la orden; en creación, según km actual del vehículo */
     if (vehiculoSelect && kmEntradaInput) {
+        const form = kmEntradaInput.closest("form");
+        const kmMinOriginal = form && form.hasAttribute("data-km-min-original")
+            ? parseInt(form.getAttribute("data-km-min-original"), 10)
+            : null;
+
         const updateKmMin = () => {
             const selected = vehiculoSelect.options[vehiculoSelect.selectedIndex];
-            const minKm = selected && selected.hasAttribute("data-km")
+            const vehicleKm = selected && selected.hasAttribute("data-km")
                 ? parseInt(selected.getAttribute("data-km"), 10)
                 : 0;
+            const minKm = kmMinOriginal != null
+                ? kmMinOriginal
+                : vehicleKm;
             kmEntradaInput.min = minKm;
             if (kmEntradaInput.value !== "" && parseInt(kmEntradaInput.value, 10) < minKm) {
                 kmEntradaInput.value = minKm;
